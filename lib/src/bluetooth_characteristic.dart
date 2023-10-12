@@ -9,7 +9,7 @@ final Guid cccdUuid = Guid("00002902-0000-1000-8000-00805f9b34fb");
 class BluetoothCharacteristic {
   final DeviceIdentifier remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final CharacteristicProperties properties;
   final List<BluetoothDescriptor> descriptors;
@@ -26,13 +26,13 @@ class BluetoothCharacteristic {
   ///   - anytime a notification arrives (if subscribed)
   List<int> get lastValue {
     String key = "$serviceUuid:$characteristicUuid";
-    return FlutterBluePlus._lastChrs[remoteId]?[key] ?? [];
+    return FlutterBluePlus._lastChrs[remoteId]?.get(key) ?? [];
   }
 
   BluetoothCharacteristic.fromProto(BmBluetoothCharacteristic p)
       : remoteId = DeviceIdentifier(p.remoteId.toString()),
         serviceUuid = p.serviceUuid,
-        secondaryServiceUuid = p.secondaryServiceUuid != null ? p.secondaryServiceUuid! : null,
+        secondaryServiceUuid = p.secondaryServiceUuid != null ? p.secondaryServiceUuid : null,
         characteristicUuid = p.characteristicUuid,
         descriptors = p.descriptors.map((d) => BluetoothDescriptor.fromProto(d)).toList(),
         properties = CharacteristicProperties.fromProto(p.properties);

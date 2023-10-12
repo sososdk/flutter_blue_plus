@@ -8,7 +8,7 @@ class BluetoothDevice {
   final DeviceIdentifier remoteId;
 
   BluetoothDevice({
-    required this.remoteId,
+    @required this.remoteId,
   });
 
   BluetoothDevice.fromProto(BmBluetoothDevice p) : remoteId = DeviceIdentifier(p.remoteId);
@@ -25,8 +25,8 @@ class BluetoothDevice {
   /// Get services
   ///  - returns null if discoverServices() has not been called
   ///  - this is cleared on disconnection. You must call discoverServices() again
-  List<BluetoothService>? get servicesList {
-    return FlutterBluePlus._knownServices[remoteId]?.services.map((p) => BluetoothService.fromProto(p)).toList();
+  List<BluetoothService> get servicesList {
+    return FlutterBluePlus._knownServices[remoteId]?.services?.map((p) => BluetoothService.fromProto(p))?.toList();
   }
 
   /// Establishes a connection to the Bluetooth Device.
@@ -157,12 +157,12 @@ class BluetoothDevice {
   }
 
   /// The most recent disconnection reason
-  DisconnectReason? get disconnectReason {
+  DisconnectReason get disconnectReason {
     if (FlutterBluePlus._connectionStates[remoteId] == null) {
       return null;
     }
-    int? code = FlutterBluePlus._connectionStates[remoteId]!.disconnectReasonCode;
-    String? description = FlutterBluePlus._connectionStates[remoteId]!.disconnectReasonString;
+    int code = FlutterBluePlus._connectionStates[remoteId].disconnectReasonCode;
+    String description = FlutterBluePlus._connectionStates[remoteId].disconnectReasonString;
     return DisconnectReason(_nativeError, code, description);
   }
 
@@ -172,7 +172,7 @@ class BluetoothDevice {
     // *our* app, which is why we can use our cached value, or assume disconnected
     BluetoothConnectionState initialValue = BluetoothConnectionState.disconnected;
     if (FlutterBluePlus._connectionStates[remoteId] != null) {
-      initialValue = _bmToConnectionState(FlutterBluePlus._connectionStates[remoteId]!.connectionState);
+      initialValue = _bmToConnectionState(FlutterBluePlus._connectionStates[remoteId].connectionState);
     }
     return FlutterBluePlus._methodStream.stream
         .where((m) => m.method == "OnConnectionStateChanged")
@@ -209,12 +209,12 @@ class BluetoothDevice {
     } else {
       final Guid gattUuid = Guid("00001800-0000-1000-8000-00805F9B34FB");
       final Guid nameUuid = Guid("00002A00-0000-1000-8000-00805F9B34FB");
-      BluetoothService? svc = servicesList?._firstWhereOrNull((svc) => svc.uuid == gattUuid);
+      BluetoothService svc = servicesList?._firstWhereOrNull((svc) => svc.uuid == gattUuid);
       if (svc == null) {
         throw FlutterBluePlusException(
             ErrorPlatform.dart, "onNameChanged", FbpErrorCode.serviceNotFound.index, "GATT Service Not Found");
       }
-      BluetoothCharacteristic? chr = svc.characteristics._firstWhereOrNull((chr) => chr.uuid == nameUuid);
+      BluetoothCharacteristic chr = svc.characteristics._firstWhereOrNull((chr) => chr.uuid == nameUuid);
       if (chr == null) {
         throw FlutterBluePlusException(
             ErrorPlatform.dart, "onNameChanged", FbpErrorCode.characteristicNotFound.index, "GAP Name Not Found");
@@ -240,12 +240,12 @@ class BluetoothDevice {
     } else {
       final Guid gattUuid = Guid("00001800-0000-1000-8000-00805F9B34FB");
       final Guid changeUuid = Guid("00002A05-0000-1000-8000-00805F9B34FB");
-      BluetoothService? svc = servicesList?._firstWhereOrNull((svc) => svc.uuid == gattUuid);
+      BluetoothService svc = servicesList?._firstWhereOrNull((svc) => svc.uuid == gattUuid);
       if (svc == null) {
         throw FlutterBluePlusException(
             ErrorPlatform.dart, "onServicesChanged", FbpErrorCode.serviceNotFound.index, "GATT Service Not Found");
       }
-      BluetoothCharacteristic? chr = svc.characteristics._firstWhereOrNull((chr) => chr.uuid == changeUuid);
+      BluetoothCharacteristic chr = svc.characteristics._firstWhereOrNull((chr) => chr.uuid == changeUuid);
       if (chr == null) {
         throw FlutterBluePlusException(
             ErrorPlatform.dart, "onServicesChanged", FbpErrorCode.characteristicNotFound.index, "GAP Name Not Found");
@@ -356,7 +356,7 @@ class BluetoothDevice {
   }
 
   /// Request connection priority update (Android only)
-  Future<void> requestConnectionPriority({required ConnectionPriority connectionPriorityRequest}) async {
+  Future<void> requestConnectionPriority({@required ConnectionPriority connectionPriorityRequest}) async {
     // check android
     if (Platform.isAndroid == false) {
       throw FlutterBluePlusException(
@@ -384,9 +384,9 @@ class BluetoothDevice {
   ///   - [option] preferred coding to use when transmitting on Phy.leCoded
   /// Please note that this is just a recommendation given to the system.
   Future<void> setPreferredPhy({
-    required int txPhy,
-    required int rxPhy,
-    required PhyCoding option,
+    @required int txPhy,
+    @required int rxPhy,
+    @required PhyCoding option,
   }) async {
     // check android
     if (Platform.isAndroid == false) {
@@ -535,7 +535,7 @@ class BluetoothDevice {
     if (FlutterBluePlus._bondStates[remoteId] != null) {
       // we prefer to use the cached bond state (if available) because
       // getBondState is not able to detect bondLost & bondFailed
-      BluetoothBondState initialValue = _bmToBondState(FlutterBluePlus._bondStates[remoteId]!);
+      BluetoothBondState initialValue = _bmToBondState(FlutterBluePlus._bondStates[remoteId]);
       yield* FlutterBluePlus._methodStream.stream
           .where((m) => m.method == "OnBondStateChanged")
           .map((m) => m.arguments)

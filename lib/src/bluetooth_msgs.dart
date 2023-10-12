@@ -13,7 +13,7 @@ enum BmAdapterStateEnum {
 class BmBluetoothAdapterState {
   BmAdapterStateEnum adapterState;
 
-  BmBluetoothAdapterState({required this.adapterState});
+  BmBluetoothAdapterState({@required this.adapterState});
 
   Map<dynamic, dynamic> toMap() {
     final Map<dynamic, dynamic> data = {};
@@ -29,9 +29,9 @@ class BmBluetoothAdapterState {
 }
 
 class BmAdvertisementData {
-  final String? localName;
+  final String localName;
   final bool connectable;
-  final int? txPowerLevel;
+  final int txPowerLevel;
   final Map<int, List<int>> manufacturerData;
   final Map<String, List<int>> serviceData;
 
@@ -40,12 +40,12 @@ class BmAdvertisementData {
   List<String> serviceUuids;
 
   BmAdvertisementData({
-    required this.localName,
-    required this.connectable,
-    required this.txPowerLevel,
-    required this.manufacturerData,
-    required this.serviceData,
-    required this.serviceUuids,
+    @required this.localName,
+    @required this.connectable,
+    @required this.txPowerLevel,
+    @required this.manufacturerData,
+    @required this.serviceData,
+    @required this.serviceUuids,
   });
 
   factory BmAdvertisementData.fromMap(Map<dynamic, dynamic> json) {
@@ -94,11 +94,11 @@ class BmScanSettings {
   final bool androidUsesFineLocation;
 
   BmScanSettings({
-    required this.serviceUuids,
-    required this.macAddresses,
-    required this.allowDuplicates,
-    required this.androidScanMode,
-    required this.androidUsesFineLocation,
+    @required this.serviceUuids,
+    @required this.macAddresses,
+    @required this.allowDuplicates,
+    @required this.androidScanMode,
+    @required this.androidUsesFineLocation,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -120,13 +120,13 @@ class BmScanSettings {
 
 class BmScanFailed {
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmScanFailed({
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmScanFailed.fromMap(Map<dynamic, dynamic> json) {
@@ -144,9 +144,9 @@ class BmScanResult {
   final int rssi;
 
   BmScanResult({
-    required this.device,
-    required this.advertisementData,
-    required this.rssi,
+    @required this.device,
+    @required this.advertisementData,
+    @required this.rssi,
   });
 
   factory BmScanResult.fromMap(Map<dynamic, dynamic> json) {
@@ -159,12 +159,12 @@ class BmScanResult {
 }
 
 class BmScanResponse {
-  final BmScanResult? result;
-  final BmScanFailed? failed;
+  final BmScanResult result;
+  final BmScanFailed failed;
 
   BmScanResponse({
-    required this.result,
-    required this.failed,
+    @required this.result,
+    @required this.failed,
   });
 
   factory BmScanResponse.fromMap(Map<dynamic, dynamic> json) {
@@ -180,8 +180,8 @@ class BmConnectRequest {
   bool autoConnect;
 
   BmConnectRequest({
-    required this.remoteId,
-    required this.autoConnect,
+    @required this.remoteId,
+    @required this.autoConnect,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -194,11 +194,11 @@ class BmConnectRequest {
 
 class BmBluetoothDevice {
   String remoteId;
-  String? platformName;
+  String platformName;
 
   BmBluetoothDevice({
-    required this.remoteId,
-    required this.platformName,
+    @required this.remoteId,
+    @required this.platformName,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -224,11 +224,11 @@ class BmBluetoothService {
   List<BmBluetoothService> includedServices;
 
   BmBluetoothService({
-    required this.serviceUuid,
-    required this.remoteId,
-    required this.isPrimary,
-    required this.characteristics,
-    required this.includedServices,
+    @required this.serviceUuid,
+    @required this.remoteId,
+    @required this.isPrimary,
+    @required this.characteristics,
+    @required this.includedServices,
   });
 
   factory BmBluetoothService.fromMap(Map<dynamic, dynamic> json) {
@@ -257,18 +257,18 @@ class BmBluetoothService {
 class BmBluetoothCharacteristic {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   List<BmBluetoothDescriptor> descriptors;
   BmCharacteristicProperties properties;
 
   BmBluetoothCharacteristic({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.descriptors,
-    required this.properties,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.descriptors,
+    @required this.properties,
   });
 
   factory BmBluetoothCharacteristic.fromMap(Map<dynamic, dynamic> json) {
@@ -296,10 +296,10 @@ class BmBluetoothDescriptor {
   final Guid descriptorUuid;
 
   BmBluetoothDescriptor({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.characteristicUuid,
-    required this.descriptorUuid,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.characteristicUuid,
+    @required this.descriptorUuid,
   });
 
   factory BmBluetoothDescriptor.fromMap(Map<dynamic, dynamic> json) {
@@ -325,16 +325,16 @@ class BmCharacteristicProperties {
   bool indicateEncryptionRequired;
 
   BmCharacteristicProperties({
-    required this.broadcast,
-    required this.read,
-    required this.writeWithoutResponse,
-    required this.write,
-    required this.notify,
-    required this.indicate,
-    required this.authenticatedSignedWrites,
-    required this.extendedProperties,
-    required this.notifyEncryptionRequired,
-    required this.indicateEncryptionRequired,
+    @required this.broadcast,
+    @required this.read,
+    @required this.writeWithoutResponse,
+    @required this.write,
+    @required this.notify,
+    @required this.indicate,
+    @required this.authenticatedSignedWrites,
+    @required this.extendedProperties,
+    @required this.notifyEncryptionRequired,
+    @required this.indicateEncryptionRequired,
   });
 
   factory BmCharacteristicProperties.fromMap(Map<dynamic, dynamic> json) {
@@ -357,15 +357,15 @@ class BmDiscoverServicesResult {
   final String remoteId;
   final List<BmBluetoothService> services;
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmDiscoverServicesResult({
-    required this.remoteId,
-    required this.services,
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.remoteId,
+    @required this.services,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmDiscoverServicesResult.fromMap(Map<dynamic, dynamic> json) {
@@ -384,14 +384,14 @@ class BmDiscoverServicesResult {
 class BmReadCharacteristicRequest {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
 
   BmReadCharacteristicRequest({
-    required this.remoteId,
-    required this.serviceUuid,
+    @required this.remoteId,
+    @required this.serviceUuid,
     this.secondaryServiceUuid,
-    required this.characteristicUuid,
+    @required this.characteristicUuid,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -407,22 +407,22 @@ class BmReadCharacteristicRequest {
 class BmCharacteristicData {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final List<int> value;
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmCharacteristicData({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.value,
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.value,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmCharacteristicData.fromMap(Map<dynamic, dynamic> json) {
@@ -442,16 +442,16 @@ class BmCharacteristicData {
 class BmReadDescriptorRequest {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final Guid descriptorUuid;
 
   BmReadDescriptorRequest({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.descriptorUuid,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.descriptorUuid,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -473,20 +473,20 @@ enum BmWriteType {
 class BmWriteCharacteristicRequest {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final BmWriteType writeType;
   final bool allowLongWrite;
   final List<int> value;
 
   BmWriteCharacteristicRequest({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.writeType,
-    required this.allowLongWrite,
-    required this.value,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.writeType,
+    @required this.allowLongWrite,
+    @required this.value,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -505,18 +505,18 @@ class BmWriteCharacteristicRequest {
 class BmWriteDescriptorRequest {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final Guid descriptorUuid;
   final List<int> value;
 
   BmWriteDescriptorRequest({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.descriptorUuid,
-    required this.value,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.descriptorUuid,
+    @required this.value,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -531,28 +531,27 @@ class BmWriteDescriptorRequest {
   }
 }
 
-
 class BmDescriptorData {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final Guid descriptorUuid;
   final List<int> value;
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmDescriptorData({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.descriptorUuid,
-    required this.value,
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.descriptorUuid,
+    @required this.value,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmDescriptorData.fromMap(Map<dynamic, dynamic> json) {
@@ -573,16 +572,16 @@ class BmDescriptorData {
 class BmSetNotifyValueRequest {
   final String remoteId;
   final Guid serviceUuid;
-  final Guid? secondaryServiceUuid;
+  final Guid secondaryServiceUuid;
   final Guid characteristicUuid;
   final bool enable;
 
   BmSetNotifyValueRequest({
-    required this.remoteId,
-    required this.serviceUuid,
-    required this.secondaryServiceUuid,
-    required this.characteristicUuid,
-    required this.enable,
+    @required this.remoteId,
+    @required this.serviceUuid,
+    @required this.secondaryServiceUuid,
+    @required this.characteristicUuid,
+    @required this.enable,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -604,14 +603,14 @@ enum BmConnectionStateEnum {
 class BmConnectionStateResponse {
   final String remoteId;
   final BmConnectionStateEnum connectionState;
-  final int? disconnectReasonCode;
-  final String? disconnectReasonString;
+  final int disconnectReasonCode;
+  final String disconnectReasonString;
 
   BmConnectionStateResponse({
-    required this.remoteId,
-    required this.connectionState,
-    required this.disconnectReasonCode,
-    required this.disconnectReasonString,
+    @required this.remoteId,
+    @required this.connectionState,
+    @required this.disconnectReasonCode,
+    @required this.disconnectReasonString,
   });
 
   factory BmConnectionStateResponse.fromMap(Map<dynamic, dynamic> json) {
@@ -627,7 +626,7 @@ class BmConnectionStateResponse {
 class BmConnectedDevicesResponse {
   final List<BmBluetoothDevice> devices;
 
-  BmConnectedDevicesResponse({required this.devices});
+  BmConnectedDevicesResponse({@required this.devices});
 
   factory BmConnectedDevicesResponse.fromMap(Map<dynamic, dynamic> json) {
     // convert to BmBluetoothDevice
@@ -643,7 +642,7 @@ class BmMtuChangeRequest {
   final String remoteId;
   final int mtu;
 
-  BmMtuChangeRequest({required this.remoteId, required this.mtu});
+  BmMtuChangeRequest({@required this.remoteId, @required this.mtu});
 
   Map<dynamic, dynamic> toMap() {
     final Map<dynamic, dynamic> data = {};
@@ -657,15 +656,15 @@ class BmMtuChangedResponse {
   final String remoteId;
   final int mtu;
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmMtuChangedResponse({
-    required this.remoteId,
-    required this.mtu,
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.remoteId,
+    @required this.mtu,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmMtuChangedResponse.fromMap(Map<dynamic, dynamic> json) {
@@ -683,15 +682,15 @@ class BmReadRssiResult {
   final String remoteId;
   final int rssi;
   final bool success;
-  final int? errorCode;
-  final String? errorString;
+  final int errorCode;
+  final String errorString;
 
   BmReadRssiResult({
-    required this.remoteId,
-    required this.rssi,
-    required this.success,
-    required this.errorCode,
-    required this.errorString,
+    @required this.remoteId,
+    @required this.rssi,
+    @required this.success,
+    @required this.errorCode,
+    @required this.errorString,
   });
 
   factory BmReadRssiResult.fromMap(Map<dynamic, dynamic> json) {
@@ -716,8 +715,8 @@ class BmConnectionPriorityRequest {
   final BmConnectionPriorityEnum connectionPriority;
 
   BmConnectionPriorityRequest({
-    required this.remoteId,
-    required this.connectionPriority,
+    @required this.remoteId,
+    @required this.connectionPriority,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -735,10 +734,10 @@ class BmPreferredPhy {
   final int phyOptions;
 
   BmPreferredPhy({
-    required this.remoteId,
-    required this.txPhy,
-    required this.rxPhy,
-    required this.phyOptions,
+    @required this.remoteId,
+    @required this.txPhy,
+    @required this.rxPhy,
+    @required this.phyOptions,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -773,10 +772,10 @@ class BmBondStateResponse {
   final bool bondLost;   // only possible when bondState.none
 
   BmBondStateResponse({
-    required this.remoteId,
-    required this.bondState,
-    required this.bondFailed,
-    required this.bondLost,
+    @required this.remoteId,
+    @required this.bondState,
+    @required this.bondFailed,
+    @required this.bondLost,
   });
 
   factory BmBondStateResponse.fromMap(Map<dynamic, dynamic> json) {

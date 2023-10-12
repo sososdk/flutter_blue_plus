@@ -132,11 +132,11 @@ class _StreamController<T> {
 
   final StreamController<T> _controller = StreamController<T>.broadcast();
 
-  _StreamController({required T initialValue}) : this.latestValue = initialValue;
+  _StreamController({@required T initialValue}) : this.latestValue = initialValue;
 
   Stream<T> get stream {
     if (latestValue != null) {
-      return _controller.stream.newStreamWithInitialValue(latestValue!);
+      return _controller.stream.newStreamWithInitialValue(latestValue);
     } else {
       return _controller.stream;
     }
@@ -149,7 +149,7 @@ class _StreamController<T> {
     _controller.add(newValue);
   }
 
-  void listen(Function(T) onData, {Function? onError, void Function()? onDone, bool? cancelOnError}) {
+  void listen(Function(T) onData, {Function onError, void Function() onDone, bool cancelOnError}) {
     onData(latestValue);
     _controller.stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
@@ -163,9 +163,9 @@ class _StreamController<T> {
 // buffering it in a new single-subscription stream
 class _BufferStream<T> {
   final Stream<T> _inputStream;
-  late final StreamSubscription? _subscription;
-  late final StreamController<T> _controller;
-  late bool hasReceivedValue = false;
+  StreamSubscription _subscription;
+  StreamController<T> _controller;
+  bool hasReceivedValue = false;
 
   _BufferStream.listen(this._inputStream) {
     _controller = StreamController<T>(
@@ -223,8 +223,8 @@ class _NewStreamWithInitialValueTransformer<T> extends StreamTransformerBase<T, 
   }
 
   Stream<T> _bind(Stream<T> stream) {
-    StreamController<T>? controller;
-    StreamSubscription<T>? subscription;
+    StreamController<T> controller;
+    StreamSubscription<T> subscription;
 
     controller = StreamController<T>(
       onListen: () {
@@ -240,7 +240,7 @@ class _NewStreamWithInitialValueTransformer<T> extends StreamTransformerBase<T, 
           onDone: controller?.close,
         );
       },
-      onPause: ([Future<dynamic>? resumeSignal]) {
+      onPause: ([Future<dynamic> resumeSignal]) {
         subscription?.pause(resumeSignal);
       },
       onResume: () {
@@ -327,14 +327,14 @@ class _MutexFactory {
   static final Map<String, _Mutex> _all = {};
 
   static Future<_Mutex> getMutexForKey(String key) async {
-    _Mutex? value;
+    _Mutex value;
     await _global.take();
     {
       _all[key] ??= _Mutex();
       value = _all[key];
     }
     _global.give();
-    return value!;
+    return value;
   }
 }
 
@@ -361,7 +361,7 @@ String _brown(String s) {
 
 extension FirstWhereOrNullExtension<T> on Iterable<T> {
   /// returns first item to satisfy `test`, else null
-  T? _firstWhereOrNull(bool Function(T) test) {
+  T _firstWhereOrNull(bool Function(T) test) {
     for (var element in this) {
       if (test(element)) {
         return element;
@@ -378,4 +378,8 @@ extension RemoveWhere<T> on List<T> {
     this.removeWhere(test);
     return this.length != initialLength;
   }
+}
+
+extension MapGetExtension<K, V> on Map<K, V> {
+  V get(K key) => this[key];
 }

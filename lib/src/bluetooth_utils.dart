@@ -5,8 +5,8 @@ enum BluetoothAdapterState { unknown, unavailable, unauthorized, turningOn, on, 
 
 class DisconnectReason {
   final ErrorPlatform platform;
-  final int? code; // specific to platform
-  final String? description;
+  final int code; // specific to platform
+  final String description;
   DisconnectReason(this.platform, this.code, this.description);
   @override
   String toString() {

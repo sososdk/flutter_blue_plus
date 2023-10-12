@@ -21,7 +21,7 @@ class BluetoothDescriptor {
   ///   - anytime `write()` is called
   List<int> get lastValue {
     String key = "$serviceUuid:$characteristicUuid:$descriptorUuid";
-    return FlutterBluePlus._lastDescs[remoteId]?[key] ?? [];
+    return FlutterBluePlus._lastDescs[remoteId]?.get(key) ?? [];
   }
 
   /// this stream emits values:
